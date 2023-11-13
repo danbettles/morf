@@ -1,6 +1,6 @@
 # Morf
 
-Morf is used to filter request-parameters *en masse*.  It is configured with an array of definitions that describe each parameter you're interested in, and serves-up valid, type-cast values; it'll spit-out an exception when something's overtly wrong.
+Morf is used to filter request-parameters *en masse*.  It is configured with an array of definitions that describes each parameter you're interested in, and serves-up valid, type-cast values; it'll spit-out an exception when something's overtly wrong.
 
 For safety's sake, Morf is strict and opinionated, and uses PHP built-ins whenever possible.
 
