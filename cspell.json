@@ -1,0 +1,15 @@
+{
+    "ignoreWords": [
+        "phpstan",
+        "symfony",
+        "morf",
+
+        "foo",
+        "baz",
+        "qux",
+        "quux",
+        "corge",
+        "grault",
+        "garply"
+    ]
+}
