@@ -28,6 +28,16 @@ class Validators
     }
 
     /**
+     * Integer greater than or equal to zero
+     *
+     * @param mixed $value
+     */
+    public function nonNegativeInteger($value): bool
+    {
+        return $this->positiveInteger($value) || 0 === $value;
+    }
+
+    /**
      * @phpstan-param Validator $validator
      * @param mixed $dirtyValue
      * @throws RuntimeException If the validator-closure failed to return a Boolean

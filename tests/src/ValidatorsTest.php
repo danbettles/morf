@@ -10,6 +10,8 @@ use DanBettles\Morf\Validators;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
+use function array_merge;
+
 use const false;
 use const null;
 use const true;
@@ -25,13 +27,15 @@ class ValidatorsTest extends TestCase
     public function providesPositiveIntegers(): array
     {
         return [
-            [true, 1],
-            [true, 2],
-            [false, 0],  // Not positive
-            [false, 1.0],  // Not an integer
-            [false, 2.0],  // Still not an integer
-            [false, '1'],  // Not an integer
-            [false, '1.0'],  // Not an integer
+            [true, 21],
+
+            [false, -1],  // No, because negative
+            [false, 0.0],  // Not an integer
+            [false, 21.0],  // ditto
+            [false, '0'],  // Not an integer
+            [false, '21'],  // ditto
+            [false, '0.0'],  // Definitely not
+            [false, '21.0'],  // ditto
         ];
     }
 
@@ -46,6 +50,28 @@ class ValidatorsTest extends TestCase
         $this->assertSame(
             $expected,
             (new Validators())->positiveInteger($value)
+        );
+    }
+
+    /** @return array<mixed[]> */
+    public function providesNonNegativeIntegers(): array
+    {
+        return array_merge($this->providesPositiveIntegers(), [
+            [true, 0],
+        ]);
+    }
+
+    /**
+     * @dataProvider providesNonNegativeIntegers
+     * @param mixed $value
+     */
+    public function testNonnegativeintegerReturnsTrueIfTheValueIsANonNegativeNumber(
+        bool $expected,
+        $value
+    ): void {
+        $this->assertSame(
+            $expected,
+            (new Validators())->nonNegativeInteger($value)
         );
     }
 
