@@ -833,7 +833,7 @@ class FilterTest extends TestCase
             // ###> A blank is valid only in the case of strings ###
             // #0 Value not in list; def with user default-value
             [
-                'Failed to convert the variable, `""`, to an integer',
+                'The value for `blank_for_int` is invalid: Failed to convert the variable, `""`, to an integer',
                 [
                     [
                         'name' => 'blank_for_int',
@@ -848,7 +848,7 @@ class FilterTest extends TestCase
             ],
             // #1 Value not in list; def with user default-value
             [
-                'Failed to convert the variable, `""`, to a double',
+                'The value for `blank_for_float` is invalid: Failed to convert the variable, `""`, to a double',
                 [
                     [
                         'name' => 'blank_for_float',
@@ -864,7 +864,7 @@ class FilterTest extends TestCase
 
             // #2
             [
-                'Failed to convert the variable, `""`, to a boolean',
+                'The value for `blank_for_bool` is invalid: Failed to convert the variable, `""`, to a boolean',
                 [
                     [
                         'name' => 'blank_for_bool',
@@ -878,7 +878,7 @@ class FilterTest extends TestCase
             ],
             // #3
             [
-                'Failed to convert the variable, `""`, to an int',
+                'The value for `blank_for_int` is invalid: Failed to convert the variable, `""`, to an int',
                 [
                     [
                         'name' => 'blank_for_int',
@@ -892,7 +892,7 @@ class FilterTest extends TestCase
             ],
             // #4
             [
-                'Failed to convert the variable, `""`, to a double',
+                'The value for `blank_for_double` is invalid: Failed to convert the variable, `""`, to a double',
                 [
                     [
                         'name' => 'blank_for_double',
@@ -906,7 +906,7 @@ class FilterTest extends TestCase
             ],
             // #5
             [
-                'Failed to convert the variable, `""`, to an array',
+                'The value for `blank_for_array` is invalid: Failed to convert the variable, `""`, to an array',
                 [
                     [
                         'name' => 'blank_for_array',
@@ -923,7 +923,7 @@ class FilterTest extends TestCase
             // ###> Only `"1"` and `"0"` are accepted for Booleans ###
             // #6
             [
-                'Failed to convert the variable, `"true"`, to a boolean',
+                'The value for `invalid_boolean_value` is invalid: Failed to convert the variable, `"true"`, to a boolean',
                 [
                     [
                         'name' => 'invalid_boolean_value',
@@ -937,7 +937,7 @@ class FilterTest extends TestCase
             ],
             // #7
             [
-                'Failed to convert the variable, `"false"`, to a boolean',
+                'The value for `invalid_boolean_value` is invalid: Failed to convert the variable, `"false"`, to a boolean',
                 [
                     [
                         'name' => 'invalid_boolean_value',
@@ -951,7 +951,7 @@ class FilterTest extends TestCase
             ],
             // #8
             [
-                'Failed to convert the variable, `"on"`, to a boolean',
+                'The value for `invalid_boolean_value` is invalid: Failed to convert the variable, `"on"`, to a boolean',
                 [
                     [
                         'name' => 'invalid_boolean_value',
@@ -965,7 +965,7 @@ class FilterTest extends TestCase
             ],
             // #9
             [
-                'Failed to convert the variable, `"off"`, to a boolean',
+                'The value for `invalid_boolean_value` is invalid: Failed to convert the variable, `"off"`, to a boolean',
                 [
                     [
                         'name' => 'invalid_boolean_value',
@@ -979,7 +979,7 @@ class FilterTest extends TestCase
             ],
             // #10
             [
-                'Failed to convert the variable, `"yes"`, to a boolean',
+                'The value for `invalid_boolean_value` is invalid: Failed to convert the variable, `"yes"`, to a boolean',
                 [
                     [
                         'name' => 'invalid_boolean_value',
@@ -993,7 +993,7 @@ class FilterTest extends TestCase
             ],
             // #11
             [
-                'Failed to convert the variable, `"no"`, to a boolean',
+                'The value for `invalid_boolean_value` is invalid: Failed to convert the variable, `"no"`, to a boolean',
                 [
                     [
                         'name' => 'invalid_boolean_value',
@@ -1010,7 +1010,7 @@ class FilterTest extends TestCase
             // ###> An array must always be met with an array ###
             // #12
             [
-                'Failed to convert the variable, `"123"`, to an array',
+                'The value for `some_other_string_for_array` is invalid: Failed to convert the variable, `"123"`, to an array',
                 [
                     [
                         'name' => 'some_other_string_for_array',
@@ -1024,7 +1024,7 @@ class FilterTest extends TestCase
             ],
             // #13
             [
-                'Failed to convert the variable, `"3.142"`, to an array',
+                'The value for `some_other_string_for_array` is invalid: Failed to convert the variable, `"3.142"`, to an array',
                 [
                     [
                         'name' => 'some_other_string_for_array',
@@ -1038,7 +1038,7 @@ class FilterTest extends TestCase
             ],
             // #14
             [
-                'Failed to convert the variable, `"foo"`, to an array',
+                'The value for `some_other_string_for_array` is invalid: Failed to convert the variable, `"foo"`, to an array',
                 [
                     [
                         'name' => 'some_other_string_for_array',
@@ -1064,7 +1064,7 @@ class FilterTest extends TestCase
         array $defs,
         array $dirty
     ): void {
-        $this->expectException(TypeConversionFailedException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         Filter::create($defs)->filter($dirty);

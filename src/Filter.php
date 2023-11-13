@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DanBettles\Morf;
 
+use DanBettles\Morf\Exception\TypeConversionFailedException;
 use Exception;
 use InvalidArgumentException;
 
@@ -75,6 +76,7 @@ class Filter
      * @param array<mixed,mixed> $dirty
      * @phpstan-return Filtered
      * @throws InvalidArgumentException If a value is invalid
+     * @todo Throw a custom exception?
      */
     public function filter(array $dirty): array
     {
@@ -90,10 +92,18 @@ class Filter
                 continue;
             }
 
-            $typeCastDirtyValue = $this->getTypeConverter()->convert(
-                $dirty[$elementName],
-                $def['type']
-            );
+            try {
+                $typeCastDirtyValue = $this->getTypeConverter()->convert(
+                    $dirty[$elementName],
+                    $def['type']
+                );
+            } catch (TypeConversionFailedException $ex) {
+                throw new InvalidArgumentException(
+                    "The value for `{$elementName}` is invalid: {$ex->getMessage()}",
+                    0,
+                    $ex
+                );
+            }
 
             // (Value is correct type)
 
